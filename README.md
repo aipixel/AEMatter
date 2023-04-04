@@ -1,6 +1,6 @@
 # AEMatter 
 
-Official repository for the paper [**Rethinking Context Aggregation in Natural Image Matting**](https://arxiv.org/)
+Official repository for the paper [**Rethinking Context Aggregation in Natural Image Matting**](https://arxiv.org/abs/2304.01171)
 
 ## Description
 

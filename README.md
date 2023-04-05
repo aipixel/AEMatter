@@ -29,5 +29,7 @@ GPU memory >= 10GB for inference on Adobe Composition-1K testing set.
 ## Evaluation
 We provide the script `eval.py`  for evaluation.
 
+## Additional experiments
 
+We train IndexNet using the findings in this paper, and the [new implementation](https://github.com/QLYoo/YAIndexNet) achieves superior performance.
 

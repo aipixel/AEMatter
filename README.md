@@ -24,12 +24,13 @@ GPU memory >= 10GB for inference on Adobe Composition-1K testing set.
 
 | Model Name  |   Size   | MSE | SAD | Grad | Conn |
 | :------------: |:-----------:| :----:|:---:|:---:|:---:|
-| [AEMatter](https://pan.baidu.com/s/12p0YSnFsNpAZXHTGiLlarg?pwd=AEAL) | 208MiB | 2.39 | 17.79 | 4.81 | 12.64 |
+| [AEMatter](https://mega.nz/file/KEpGxAjK#8xc2G0r1_q4hguypTdfFWEo8a0ah9NcCGs9PMjXdjqU) | 208MiB | 2.39 | 17.79 | 4.81 | 12.64 |
 | AEMatter+TTA | 208MiB | 2.20 | 17.43 | 4.31 | 12.21 |
+
 ## Evaluation
 We provide the script `eval.py`  for evaluation.
 
 ## Additional experiments
 
-We train IndexNet using the findings in this paper, and the [new implementation](https://github.com/QLYoo/YAIndexNet) achieves superior performance.
+We train IndexNet using the findings in this paper, and the [new implementation](https://github.com/QLYoo/YAIndexNet) also achieves superior performance.
 

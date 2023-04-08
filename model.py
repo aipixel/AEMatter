@@ -129,7 +129,7 @@ class AEMatter(nn.Module):
             nn.PReLU(32), nn.Conv2d(in_channels=32, out_channels=1, kernel_size=3, stride=1, padding=1, bias=True))
         self.up = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)
         self.upn = nn.Upsample(scale_factor=2, mode='nearest')
-        self.apptrans = nn.Sequential(nn.Conv2d(256 + 384, 256, 1, 1, bias=True), ResBlock(256, 128),2
+        self.apptrans = nn.Sequential(nn.Conv2d(256 + 384, 256, 1, 1, bias=True), ResBlock(256, 128),
                                       ResBlock(256, 128), nn.Conv2d(256, 512, 2, 2, bias=True), ResBlock(512, 128))
         self.emb = nn.Sequential(nn.Conv2d(768, 640, 1, 1, 0), ResBlock(640, 160))
         self.embdp = nn.Sequential(nn.Conv2d(640, 640, 1, 1, 0))

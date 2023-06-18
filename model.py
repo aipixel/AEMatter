@@ -39,8 +39,8 @@ class AEALblock(nn.Module):
     def __init__(self, d_model, nhead, dim_feedforward=512, dropout=0.0,
                  layer_norm_eps=1e-5, batch_first=False, norm_first=False, width=5):
         super(AEALblock, self).__init__()
-        self.self_attn2 = nn.MultiheadAttention(d_model // 2, nhead // 2, dropout=dropout, batch_first=batch_first)
-        self.self_attn1 = nn.MultiheadAttention(d_model // 2, nhead // 2, dropout=dropout, batch_first=batch_first)
+        self.self_attn2 = nn.MultiheadAttention(d_model//2, nhead//2, dropout=dropout, batch_first=batch_first)
+        self.self_attn1 = nn.MultiheadAttention(d_model//2, nhead//2, dropout=dropout, batch_first=batch_first)
         self.linear1 = nn.Linear(d_model, dim_feedforward)
         self.dropout = nn.Dropout(dropout)
         self.linear2 = nn.Linear(dim_feedforward, d_model)
@@ -50,25 +50,28 @@ class AEALblock(nn.Module):
         self.dropout1 = nn.Dropout(dropout)
         self.dropout2 = nn.Dropout(dropout)
         self.activation = nn.ReLU()
-        self.width = width
-        self.trans = nn.Sequential(nn.Conv2d(d_model + 512, d_model, 1, 1, 0), ResBlock(d_model, d_model // 4),
-                                   ResBlock(d_model, d_model // 4), nn.Conv2d(d_model, d_model, 1, 1, 0))
+        self.width=width
+        self.trans=nn.Sequential(nn.Conv2d(d_model+512,d_model,1,1,0),ResBlock(d_model,d_model//4),ResBlock(d_model,d_model//4),nn.Conv2d(d_model,d_model,1,1,0))
 
-    def forward(self, src, feats, ):
-        src = self.trans(torch.cat([src, feats], 1)) + src
-        b, c, h, w = src.shape
-        x1 = src[:, 0:c // 2]
-        x1_ = rearrange(x1, 'b c (h1 h2) w -> b c h1 h2 w', h2=self.width)
-        x1_ = rearrange(x1_, 'b c h1 h2 w -> (b h1) (h2 w) c')
-        x2 = src[:, c // 2:]
-        x2_ = rearrange(x2, 'b c h (w1 w2) -> b c h w1 w2', w2=self.width)
-        x2_ = rearrange(x2_, 'b c h w1 w2 -> (b w1) (h w2) c')
-        x = rearrange(src, 'b c h w-> b (h w) c')
-        x = self.norm1(x + self._sa_block(x1_, x2_, h, w))
-        x = self.norm2(x + self._ff_block(x))
-        x = rearrange(x, 'b (h w) c->b c h w', h=h, w=w)
+    def forward(self, src,feats, ):
+        src=self.trans(torch.cat([src,feats],1))+src
+        b,c,h,w=src.shape
+        srctp=rearrange(src,'b c h w -> b h w c')
+        srctp=self.norm1(srctp)
+        srctp=rearrange(srctp,'b h w c -> b c h w')
+        x1=srctp[:,0:c//2]
+        x1_=rearrange(x1,'b c (h1 h2) w -> b c h1 h2 w',h2=self.width)
+        x1_=rearrange(x1_,'b c h1 h2 w -> (b h1) (h2 w) c')
+        x2=srctp[:,c//2:]
+        x2_=rearrange(x2,'b c h (w1 w2) -> b c h w1 w2',w2=self.width)
+        x2_=rearrange(x2_,'b c h w1 w2 -> (b w1) (h w2) c')
+        x=rearrange(src,'b c h w-> b (h w) c')
+        x = x + self._sa_block(x1_,x2_,h,w)
+        x_=x
+        x = x + self._ff_block(self.norm2(x_))
+        x=rearrange(x,'b (h w) c->b c h w',h=h,w=w)
         return x
-
+    
     def _sa_block(self, x1, x2, h, w):
         x1 = self.self_attn1(x1, x1, x1,
                              attn_mask=None,

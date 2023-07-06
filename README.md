@@ -32,5 +32,5 @@ We provide the script `eval.py`  for evaluation.
 
 ## Additional experiments
 
-We train IndexNet using the findings in this paper, and the [new implementation](https://github.com/QLYoo/YAIndexNet) also achieves superior performance.
+The AEMatter for Pytorch 2.0 is avaiable at [PT20](https://github.com/QLYoo/AEMatter/tree/PT20). We train IndexNet using the findings in this paper, and the [new implementation](https://github.com/QLYoo/YAIndexNet) also achieves superior performance.
 

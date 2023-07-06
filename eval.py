@@ -1,18 +1,19 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 import cv2
 import numpy as np
 import torch
 import model
 
-ptrimap='O:/DATAS/Combined_Dataset/Test_set/trimapsA/'
-pimgs='O:/DATAS/Combined_Dataset/Test_set/mergedA/'
+ptrimap='./trimaps/'
+pimgs='./img/'
 p_outs='./alphas/'
 
 os.makedirs(p_outs,exist_ok=True)
 
 if __name__ == '__main__':
     matmodel = model.AEMatter()
-    matmodel.load_state_dict(torch.load('./aematter.ckpt',map_location='cpu')['model'])
+    matmodel.load_state_dict(torch.load('./model.ckpt',map_location='cpu')['model'])
     matmodel=matmodel.cuda()
     matmodel.eval()
     for idx,file in enumerate(os.listdir(ptrimap)) :
@@ -46,12 +47,13 @@ if __name__ == '__main__':
         img=img/255.
         img=torch.from_numpy(img).cuda()
         tritempimgs=torch.from_numpy(tritempimgs).cuda()
-        with torch.no_grad():
-            pred=matmodel(img,tritempimgs)
-            pred=pred.detach().cpu().numpy()[0]
-            pred=pred[:,padh1:padh1+h,padw1:padw1+w]
-            preda=pred[0:1,]*255
-            preda=np.transpose(preda,(1,2,0))
-            preda=preda*(trimap_nonp[:,:,None]==128)+(trimap_nonp[:,:,None]==255)*255
+        with torch.cuda.amp.autocast():
+            with torch.no_grad():
+                pred=matmodel(img,tritempimgs)
+                pred=pred.detach().cpu().numpy()[0]
+                pred=pred[:,padh1:padh1+h,padw1:padw1+w]
+                preda=pred[0:1,]*255
+                preda=np.transpose(preda,(1,2,0))
+                preda=preda*(trimap_nonp[:,:,None]==128)+(trimap_nonp[:,:,None]==255)*255
         preda=np.array(preda,np.uint8)
         cv2.imwrite(p_outs+file,preda)

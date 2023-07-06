@@ -10,7 +10,7 @@ Since the implementation of Pytorch 2.x is different from Pytorch 1.x, resulting
 ## Requirements
 #### Hardware:
 
-GPU memory >= 10GB for inference on Adobe Composition-1K testing set.
+GPU memory >= 9GB for inference on Adobe Composition-1K testing set.
 
 #### Packages:
 
@@ -25,11 +25,11 @@ GPU memory >= 10GB for inference on Adobe Composition-1K testing set.
 
 | Model Name  |   Size   | MSE | SAD | Grad | Conn |
 | :------------: |:-----------:| :----:|:---:|:---:|:---:|
-| [AEMatter]() | 208MiB | 2.39 | 17.79 | 4.81 | 12.64 |
-| [AEMatter (RWA)]() | 208MiB | - | - | - | - |
+| [AEMatter](https://mega.nz/file/PFYHzCBa#Hvk1WotpZE8XfyMnFf9QzE8bjaCLdkuWSFQgrgtk930) | 208MiB | 2.49 | 18.25 | 4.99 | 13.47 |
+| [AEMatter (RWA)](https://mega.nz/file/mVIUATIC#kBQhbHKq9op5KmCbQ5NB-klS7bpl8H_ba4PycsBlkiQ) | 208MiB | - | - | - | - |
 
 ## Evaluation
-We provide the script `eval.py`  for evaluation.
+We provide the script `eval.py`  for evaluation. The model AEMatter work well on synthetic datasets, while the model AEMatter (RWA) work well on real-world images. It should be noted that these two models are trained to support Pytorch 2.0 (with AMP), but not fully tuned.
 
 ## Additional experiments
 

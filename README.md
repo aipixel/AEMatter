@@ -25,7 +25,7 @@ GPU memory >= 9GB for inference on Adobe Composition-1K testing set.
 
 | Model Name  |   Size   | MSE | SAD | Grad | Conn |
 | :------------: |:-----------:| :----:|:---:|:---:|:---:|
-| [AEMatter](https://mega.nz/file/PFYHzCBa#Hvk1WotpZE8XfyMnFf9QzE8bjaCLdkuWSFQgrgtk930) | 208MiB | 2.49 | 18.25 | 4.99 | 13.47 |
+| [AEMatter](https://mega.nz/file/nZRwQQhY#-XRJIPK4hKch2ZRvbc9owVpdBzoCeI818jK5MbjLC8o) | 208MiB | 2.35 | 18.40 | 4.69 | 13.43 |
 | [AEMatter (RWA)](https://mega.nz/file/mVIUATIC#kBQhbHKq9op5KmCbQ5NB-klS7bpl8H_ba4PycsBlkiQ) | 208MiB | - | - | - | - |
 
 ## Evaluation

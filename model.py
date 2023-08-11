@@ -37,7 +37,7 @@ class ResBlock(nn.Module):
 
 class AEALblock(nn.Module):
     def __init__(self, d_model, nhead, dim_feedforward=512, dropout=0.0,
-                 layer_norm_eps=1e-5, batch_first=False, norm_first=False, width=5):
+                 layer_norm_eps=1e-5, batch_first=True, norm_first=False, width=5):
         super(AEALblock, self).__init__()
         self.self_attn2 = nn.MultiheadAttention(d_model // 2, nhead // 2, dropout=dropout, batch_first=batch_first)
         self.self_attn1 = nn.MultiheadAttention(d_model // 2, nhead // 2, dropout=dropout, batch_first=batch_first)
@@ -51,11 +51,11 @@ class AEALblock(nn.Module):
         self.dropout2 = nn.Dropout(dropout)
         self.activation = nn.ReLU()
         self.width = width
-        self.trans = nn.Sequential(nn.Conv2d(d_model + 512, d_model, 1, 1, 0), ResBlock(d_model, d_model // 4),
-                                   ResBlock(d_model, d_model // 4), nn.Conv2d(d_model, d_model, 1, 1, 0))
-
+        self.trans=nn.Sequential(nn.Conv2d(d_model+512,d_model//2,1,1,0),ResBlock(d_model//2,d_model//4),nn.Conv2d(d_model//2,d_model,1,1,0))
+        self.gamma = nn.Parameter(torch.zeros(1))
+        
     def forward(self, src, feats, ):
-        src = self.trans(torch.cat([src, feats], 1)) + src
+        src= self.gamma* self.trans(torch.cat([src,feats],1))+src
         b, c, h, w = src.shape
         x1 = src[:, 0:c // 2]
         x1_ = rearrange(x1, 'b c (h1 h2) w -> b c h1 h2 w', h2=self.width)

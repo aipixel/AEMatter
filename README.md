@@ -25,12 +25,10 @@ GPU memory >= 10GB for inference on Adobe Composition-1K testing set.
 | Model Name  |   Size   | MSE | SAD | Grad | Conn |
 | :------------: |:-----------:| :----:|:---:|:---:|:---:|
 | [AEMatter](https://mega.nz/file/7N4AEKrS#L4h3Cm2qLMMbwBGm1lyGOmVDTXJwDMAi4BlBauqNHrI) | 195MiB | 2.26 | 17.53 | 4.76 | 12.46 |
-| AEMatter+TTA | 195MiB | 2.06 | 16.89 | 4.24 | 11.72 |
+| [AEMatter+TTA](https://mega.nz/file/7N4AEKrS#L4h3Cm2qLMMbwBGm1lyGOmVDTXJwDMAi4BlBauqNHrI) | 195MiB | 2.06 | 16.89 | 4.24 | 11.72 |
+| [AEMatter (RWA)](https://mega.nz/file/OEAhHAwB#jt_qn4v5RA1nNX4URDCjqDUA0Xu-UILRJJq9CCB13dk) | 195MiB | - | - | - | - |
 
 ## Evaluation
 We provide the script `eval.py`  for evaluation.
 
-## Additional experiments
-
-The AEMatter for Pytorch 2.0 is avaiable at [PT20](https://github.com/QLYoo/AEMatter/tree/PT20). We train IndexNet using the findings in this paper, and the [new implementation](https://github.com/QLYoo/YAIndexNet) also achieves superior performance.
 

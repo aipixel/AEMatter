@@ -1,6 +1,6 @@
 # AEMatter [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/rethinking-context-aggregation-in-natural/image-matting-on-composition-1k-1)](https://paperswithcode.com/sota/image-matting-on-composition-1k-1?p=rethinking-context-aggregation-in-natural)
 
-Official repository for the paper [**Rethinking Context Aggregation in Natural Image Matting**](https://arxiv.org/abs/2304.01171)
+Official repository for the paper [**Revisiting Context Aggregation for Image Matting**](https://arxiv.org/abs/2304.01171)
 
 ## Description
 
@@ -43,5 +43,15 @@ Due to differences in data set preparation, the quantitative results on Distinct
 
 ## Evaluation
 We provide the script `eval.py`  for evaluation.
+
+## Citation
+```
+@inproceedings{liu2024aematter,
+  title={Revisiting Context Aggregation for Image Matting},
+  author={Liu, Qinglin and Lv, Xiaoqian and Meng, Quanling and Li, Zonglin and Lan, Xiangyuan and Yang, Shuo and Zhang, Shengping and Nie, Liqiang},
+  booktitle ={International Conference on Machine Learning (ICML)},
+  year={2024},
+}
+```
 
 

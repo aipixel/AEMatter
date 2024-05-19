@@ -20,7 +20,7 @@ GPU memory >= 10GB for inference on Adobe Composition-1K testing set.
 - timm >= 0.4.12
 
 ## Models
-**The model can only be used and distributed for noncommercial purposes.** 
+**The model can only be used and distributed for noncommercial purposes.** It is recommended to use the RWA (Real World Augmentation) model for matting on real-world images.
 
 Quantitative results on Adobe Composition-1K
 | Model Name  |   Size   | MSE | SAD | Grad | Conn |

@@ -4,15 +4,15 @@ import numpy as np
 import torch
 import model
 
-ptrimap='O:/DATAS/Combined_Dataset/Test_set/trimapsA/'
-pimgs='O:/DATAS/Combined_Dataset/Test_set/mergedA/'
-p_outs='./alphas/'
+ptrimap='./trimap/'
+pimgs='./image/'
+p_outs='./alpha/'
 
 os.makedirs(p_outs,exist_ok=True)
 
 if __name__ == '__main__':
     matmodel = model.AEMatter()
-    matmodel.load_state_dict(torch.load('./aematter.ckpt',map_location='cpu')['model'])
+    matmodel.load_state_dict(torch.load('./AEMFIX.ckpt',map_location='cpu')['model'])
     matmodel=matmodel.cuda()
     matmodel.eval()
     for idx,file in enumerate(os.listdir(ptrimap)) :

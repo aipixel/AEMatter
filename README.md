@@ -41,6 +41,9 @@ Quantitative results on AIM-500
 
 Due to differences in data set preparation, the quantitative results on Distinction-646 and Semantic Image Matting are not shown.
 
+## Training
+We provide the script `train.py`  for training. You should modify the `dataset.py` file to set the data paths.
+
 ## Evaluation
 We provide the script `eval.py`  for evaluation.
 

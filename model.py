@@ -99,9 +99,11 @@ class AEMatter(nn.Module):
                                      num_heads=[3, 6, 12, 24],
                                      window_size=7,
                                      ape=False,
-                                     drop_path_rate=0.0,
+                                     drop_path_rate=0.2,
                                      patch_norm=True,
                                      use_checkpoint=False)
+        trans.load_state_dict(torch.load('swin_tiny_patch4_window7_224.pth', map_location="cpu")["model"],
+                              strict=False)
         trans.patch_embed.proj = nn.Conv2d(64, 96, 3, 2, 1)
         self.start_conv0 = nn.Sequential(nn.Conv2d(6, 48, 3, 1, 1), nn.PReLU(48))
         self.start_conv = nn.Sequential(nn.Conv2d(48, 64, 3, 2, 1), nn.PReLU(64), nn.Conv2d(64, 64, 3, 1, 1),
@@ -115,10 +117,10 @@ class AEMatter(nn.Module):
             nn.Conv2d(in_channels=256 + 192, out_channels=192, kernel_size=1, stride=1, padding=0, bias=True), )
         self.conv4 = nn.Sequential(
             nn.Conv2d(in_channels=192 + 96, out_channels=128, kernel_size=1, stride=1, padding=0, bias=True), )
-        self.ctran0 = swin.BasicLayer(256, 3, 8, 7, drop_path=0.0)
-        self.ctran1 = swin.BasicLayer(256, 3, 8, 7, drop_path=0.0)
-        self.ctran2 = swin.BasicLayer(192, 3, 6, 7, drop_path=0.0)
-        self.ctran3 = swin.BasicLayer(128, 3, 4, 7, drop_path=0.0)
+        self.ctran0 = swin.BasicLayer(256, 3, 8, 7, drop_path=0.09)
+        self.ctran1 = swin.BasicLayer(256, 3, 8, 7, drop_path=0.07)
+        self.ctran2 = swin.BasicLayer(192, 3, 6, 7, drop_path=0.05)
+        self.ctran3 = swin.BasicLayer(128, 3, 4, 7, drop_path=0.03)
         self.conv5 = nn.Sequential(
             nn.Conv2d(in_channels=192, out_channels=64, kernel_size=3, stride=1, padding=1, bias=True), nn.PReLU(64),
             nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1, bias=True), nn.PReLU(64),
@@ -135,9 +137,9 @@ class AEMatter(nn.Module):
         self.embdp = nn.Sequential(nn.Conv2d(640, 640, 1, 1, 0))
         self.h2l = nn.Conv2d(768, 256, 1, 1, 0)
         self.width = 5
-        self.trans1 = AEALblock(d_model=640, nhead=20, dim_feedforward=2048, dropout=0.0, width=self.width)
-        self.trans2 = AEALblock(d_model=640, nhead=20, dim_feedforward=2048, dropout=0.0, width=self.width)
-        self.trans3 = AEALblock(d_model=640, nhead=20, dim_feedforward=2048, dropout=0.0, width=self.width)
+        self.trans1 = AEALblock(d_model=640, nhead=20, dim_feedforward=2048, dropout=0.2, width=self.width)
+        self.trans2 = AEALblock(d_model=640, nhead=20, dim_feedforward=2048, dropout=0.2, width=self.width)
+        self.trans3 = AEALblock(d_model=640, nhead=20, dim_feedforward=2048, dropout=0.2, width=self.width)
 
     def aeal(self, x, sem):
         xe = self.emb(x)

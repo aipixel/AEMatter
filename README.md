@@ -4,7 +4,10 @@ Official repository for the paper [**Revisiting Context Aggregation for Image Ma
 
 ## Description
 
-AEMatter is a simple yet powerful matting network.
+AEMatter is a simple yet powerful matting network. 
+> 无有入无间，吾是以知无为之有益。
+> 
+> Only nothing can enter into no-space. Hence, I know the advantages of non-doing.
 
 ## Requirements
 #### Hardware:

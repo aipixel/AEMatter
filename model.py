@@ -45,7 +45,7 @@ class AEALblock(nn.Module):
         self.dropout = nn.Dropout(dropout)
         self.linear2 = nn.Linear(dim_feedforward, d_model)
         self.norm_first = norm_first
-        self.norm1 = nn.LayerNorm(d_model, eps=layer_norm_eps)
+        self.norm1 = nn.GroupNorm(1,d_model, eps=layer_norm_eps)
         self.norm2 = nn.LayerNorm(d_model, eps=layer_norm_eps)
         self.dropout1 = nn.Dropout(dropout)
         self.dropout2 = nn.Dropout(dropout)
@@ -56,16 +56,17 @@ class AEALblock(nn.Module):
         
     def forward(self, src, feats, ):
         src= self.gamma* self.trans(torch.cat([src,feats],1))+src
+        src_=self.norm1(src)
         b, c, h, w = src.shape
-        x1 = src[:, 0:c // 2]
+        x1 = src_[:, 0:c // 2]
         x1_ = rearrange(x1, 'b c (h1 h2) w -> b c h1 h2 w', h2=self.width)
         x1_ = rearrange(x1_, 'b c h1 h2 w -> (b h1) (h2 w) c')
-        x2 = src[:, c // 2:]
+        x2 = src_[:, c // 2:]
         x2_ = rearrange(x2, 'b c h (w1 w2) -> b c h w1 w2', w2=self.width)
         x2_ = rearrange(x2_, 'b c h w1 w2 -> (b w1) (h w2) c')
         x = rearrange(src, 'b c h w-> b (h w) c')
-        x = self.norm1(x + self._sa_block(x1_, x2_, h, w))
-        x = self.norm2(x + self._ff_block(x))
+        x = x + self._sa_block(x1_, x2_, h, w)
+        x = x + self._ff_block(self.norm2(x))
         x = rearrange(x, 'b (h w) c->b c h w', h=h, w=w)
         return x
 
@@ -102,8 +103,8 @@ class AEMatter(nn.Module):
                                      drop_path_rate=0.2,
                                      patch_norm=True,
                                      use_checkpoint=False)
-        trans.load_state_dict(torch.load('swin_tiny_patch4_window7_224.pth', map_location="cpu")["model"],
-                              strict=False)
+        # trans.load_state_dict(torch.load('swin_tiny_patch4_window7_224.pth', map_location="cpu")["model"],
+        #                       strict=False)
         trans.patch_embed.proj = nn.Conv2d(64, 96, 3, 2, 1)
         self.start_conv0 = nn.Sequential(nn.Conv2d(6, 48, 3, 1, 1), nn.PReLU(48))
         self.start_conv = nn.Sequential(nn.Conv2d(48, 64, 3, 2, 1), nn.PReLU(64), nn.Conv2d(64, 64, 3, 1, 1),
@@ -203,3 +204,4 @@ class AEMatter(nn.Module):
         alpha = self.convo(X)
         alpha = torch.clamp(alpha, min=0, max=1)
         return alpha
+

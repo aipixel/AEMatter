@@ -16,7 +16,7 @@ GPU memory >= 10GB for inference on Adobe Composition-1K testing set.
 
 #### Packages:
 
-- torch >= 1.10
+- torch >= 1.10, < 2.0
 - numpy >= 1.16
 - opencv-python >= 4.0
 - einops >= 0.3.2
@@ -45,7 +45,7 @@ Quantitative results on AIM-500
 Due to differences in data set preparation, the quantitative results on Distinction-646 and Semantic Image Matting are not shown.
 
 ## Training
-We provide the script `train.py`  for training. You should modify the `dataset.py` file to set the data paths.
+We provide the script `train.py`  for training. You should modify the `dataset.py` file to set the data paths. The training and testing code appears to have numerical instability issues when executed on GPUs with PyTorch 2.0. This problem can be alleviated by modifying the order of the norm layers in AEAL. We have provided a PyTorch 2.0 branch, but it has not been trained or evaluated.
 
 ## Evaluation
 We provide the script `eval.py`  for evaluation.

@@ -30,6 +30,7 @@ Quantitative results on Adobe Composition-1K
 | :------------: |:-----------:| :----:|:---:|:---:|:---:|
 | [AEMatter](https://mega.nz/file/7N4AEKrS#L4h3Cm2qLMMbwBGm1lyGOmVDTXJwDMAi4BlBauqNHrI) | 195MiB | 2.26 | 17.53 | 4.76 | 12.46 |
 | [AEMatter+TTA](https://mega.nz/file/7N4AEKrS#L4h3Cm2qLMMbwBGm1lyGOmVDTXJwDMAi4BlBauqNHrI) | 195MiB | 2.06 | 16.89 | 4.24 | 11.72 |
+| [AEMatterV2] | - | 1.85 | 16.25 | 3.86 | 11.14 |
 | [AEMatter (RWA)](https://mega.nz/file/OEAhHAwB#jt_qn4v5RA1nNX4URDCjqDUA0Xu-UILRJJq9CCB13dk) | 195MiB | - | - | - | - |
 
 Quantitative results on Transparent-460

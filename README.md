@@ -4,7 +4,7 @@ Official repository for the paper [**Revisiting Context Aggregation for Image Ma
 
 ## Description
 
-AEMatter is a simple yet powerful matting network. 
+AEMatter is a simple yet powerful matting network. A more powerful AEMatterV2 is on the way.
 > 无有入无间，吾是以知无为之有益。
 > 
 > Only nothing can enter into no-space. Hence, I know the advantages of non-doing.
@@ -31,7 +31,8 @@ Quantitative results on Adobe Composition-1K
 | [AEMatter](https://mega.nz/file/7N4AEKrS#L4h3Cm2qLMMbwBGm1lyGOmVDTXJwDMAi4BlBauqNHrI) | 195MiB | 2.26 | 17.53 | 4.76 | 12.46 |
 | [AEMatter+TTA](https://mega.nz/file/7N4AEKrS#L4h3Cm2qLMMbwBGm1lyGOmVDTXJwDMAi4BlBauqNHrI) | 195MiB | 2.06 | 16.89 | 4.24 | 11.72 |
 | [AEMatter (RWA)](https://mega.nz/file/OEAhHAwB#jt_qn4v5RA1nNX4URDCjqDUA0Xu-UILRJJq9CCB13dk) | 195MiB | - | - | - | - |
-| AEMatterV2 | - | 1.85 | 16.25 | 3.86 | 11.14 |
+| AEMatterV2 | - | 1.97 | 16.42 | 4.19 | 11.43 |
+| AEMatterV2+TTA | - | 1.81 | 15.94 | 3.77 | 10.85 |
 
 Quantitative results on Transparent-460
 | Model Name  |   Size   | MSE | SAD | Grad | Conn |

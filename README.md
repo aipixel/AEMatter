@@ -34,6 +34,12 @@ Quantitative results on Adobe Composition-1K
 | AEMatterV2 | - | 1.97 | 16.42 | 4.19 | 11.43 |
 | AEMatterV2+TTA | - | 1.81 | 15.94 | 3.77 | 10.85 |
 
+Quantitative results on Semantic Image Matting
+| Model Name  |   Size   | MSE | SAD | Grad | Conn |
+| :------------: |:-----------:| :----:|:---:|:---:|:---:|
+| AEMatter | 195MiB |2.82 | 19.51 | 4.62 | 14.37 |
+| AEMatterV2 | - |2.32|17.79|3.95|12.42 |
+
 Quantitative results on Transparent-460
 | Model Name  |   Size   | MSE | SAD | Grad | Conn |
 | :------------: |:-----------:| :----:|:---:|:---:|:---:|
@@ -44,7 +50,6 @@ Quantitative results on AIM-500
 | :------------: |:-----------:| :----:|:---:|:---:|:---:|
 | AEMatter | 195MiB | 11.69 | 14.76 | 11.20 | 14.20 | 
 
-Due to differences in data set preparation, the quantitative results on Distinction-646 and Semantic Image Matting are not shown.
 
 ## Training
 We provide the script `train.py`  for training. You should modify the `dataset.py` file to set the data paths. The training and testing code appears to have numerical instability issues when executed on GPUs with PyTorch 2.0. This problem can be alleviated by modifying the order of the norm layers in AEAL. We have provided a [PyTorch 2.0 branch](https://github.com/aipixel/AEMatter/tree/Pytorch2.0), but it has not been trained or evaluated.
